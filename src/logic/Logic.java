@@ -20,16 +20,6 @@ class Logic {
                 }
             }
         });
-        /*for (int i = 0; i < 3; i++) {
-            int dishTypeAmount = customer.getConstraints().getDishTypes()[i];
-            for (int j = 0; j < dishTypeAmount; j++) {
-                neededDish = getNeededDish(customer.getConstraints(), i, menu);
-                if (neededDish != null) {
-                    customerWithMeal.addDish(neededDish);
-                    spendCustomerResources(customer.getConstraints(), neededDish);
-                }
-            }
-        }*/
         return customerWithMeal;
     }
 
@@ -39,33 +29,6 @@ class Logic {
                 return dish;
             }
         }
-        /*switch (dishType) { // НЕ НУЖНЫ КЕЙСЫ, ВСЕ ЧЕРЕЗ МАП
-            ArrayList<Dish> dishes = menu.getDishTypesMap().get(dishType);
-            case 0: {
-                for (Dish mainCourse : dishes) {
-                    if (isDishSuitableForCustomer(constraints, mainCourse)) {
-                        return mainCourse;
-                    }
-                }
-                break;
-            }
-            case 1: {
-                for (Salad salad : menu.getSalads()) {
-                    if (isDishSuitableForCustomer(constraints, salad)) {
-                        return salad;
-                    }
-                }
-                break;
-            }
-            case 2:
-                for (Drink drink: menu.getDrinks()) {
-                    if (isDishSuitableForCustomer(constraints, drink)) {
-                        return drink;
-                    }
-                }
-                break;
-            }
-        }*/
         return null;
     }
 

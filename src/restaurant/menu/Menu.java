@@ -1,5 +1,7 @@
 package restaurant.menu;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import restaurant.dishes.Dish;
 import restaurant.dishes.Drink;
 import restaurant.dishes.MainCourse;
@@ -9,12 +11,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
 public class Menu {
 
-    private HashMap<String, ArrayList<Dish>> dishTypesMap = new HashMap<>();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+    private Map<String, ArrayList<Dish>> dishTypesMap = new HashMap<>();
+
+
 
     public Menu() {
         dishTypesMap.put("Main Courses", new ArrayList<>());
@@ -26,33 +33,11 @@ public class Menu {
 
     }
 
-    /*public void readMenuFromTextFile(File file) throws FileNotFoundException {
-        Scanner sc = new Scanner(file);
-
-        String dishType;
-
-        String name = "Nothing";
-        int price = 0, cookingTime = 0, calories = 0;
-
-        while (sc.hasNextLine()) {
-            sc.useDelimiter(",");
-            String currentLine = sc.nextLine();
-            if (currentLine == "Main Courses" || currentLine == "Salads" || currentLine == "Drinks") {
-                dishType = currentLine;
-            }
-            else {
-                name = sc.next();
-                *//*sc.useDelimiter("\\D"); //ВСЕ ЦИФРЫ
-                price = sc.nextInt();
-                 cookingTime = sc.nextInt();
-                calories = sc.nextInt();*//*
-            }
-            System.out.println(name); //+ " " + price + " " + cookingTime + " " + calories);
-        }
-    }*/
+    public void readFromJson(String json) {
+        MainCourse mainCourse = GSON.fromJson(json, MainCourse.class);
+    }
 
     public HashMap<String, ArrayList<Dish>> getDishTypesMap() {
-        return dishTypesMap;
+        return (HashMap<String, ArrayList<Dish>>) dishTypesMap;
     }
 }
-//asda
