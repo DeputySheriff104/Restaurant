@@ -1,0 +1,64 @@
+{
+  "Main Courses": [
+    {
+      "name": "Lasagna",
+      "price": "20",
+      "cookingTime": "15",
+      "calories": "200"
+    },
+    {
+      "name": "Duck breast",
+      "price": "20",
+      "cookingTime": "20",
+      "calories": "250"
+    },
+    {
+      "name": "Pork tenderloin",
+      "price": "25",
+      "cookingTime": "20",
+      "calories": "175"
+    }
+
+  ],
+  "Salads": [
+    {
+      "name": "Caesar",
+      "price": "15",
+      "cookingTime": "10",
+      "calories": "150"
+    },
+    {
+      "name": "Greek",
+      "price": "10",
+      "cookingTime": "10",
+      "calories": "125"
+    },
+    {
+      "name": "Garden deluxe",
+      "price": "20",
+      "cookingTime": "10",
+      "calories": "175"
+    }
+
+  ],
+  "Drinks": [
+    {
+      "name": "Beer",
+      "price": "10",
+      "cookingTime": "5",
+      "calories": "75"
+    },
+    {
+      "name": "Coffee",
+      "price": "10",
+      "cookingTime": "5",
+      "calories": "50"
+    },
+    {
+      "name": "Tea",
+      "price": "5",
+      "cookingTime": "5",
+      "calories": "25"
+    }
+  ]
+}

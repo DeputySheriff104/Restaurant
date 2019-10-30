@@ -1,7 +1,11 @@
 package customer;
 
+import com.google.gson.Gson;
 import restaurant.dishes.Dish;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,5 +37,11 @@ public class CustomerWithMeal {
             str.append("\nCustomer has not chosen anything");
         }
         return str.toString();
+    }
+
+    public void writeToJson(String pathName) throws IOException {
+        FileWriter file = new FileWriter(pathName, false);
+        file.write(new Gson().toJson(dishes));
+        file.flush();
     }
 }

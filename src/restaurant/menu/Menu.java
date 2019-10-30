@@ -1,43 +1,47 @@
 package restaurant.menu;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import restaurant.dishes.Dish;
 import restaurant.dishes.Drink;
 import restaurant.dishes.MainCourse;
 import restaurant.dishes.Salad;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 
 
 public class Menu {
 
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
     private Map<String, ArrayList<Dish>> dishTypesMap = new HashMap<>();
 
-
-
-    public Menu() {
-        dishTypesMap.put("Main Courses", new ArrayList<>());
-        dishTypesMap.get("Main Courses").add(new MainCourse("Lasagna", 20, 15, 200));
-        dishTypesMap.put("Salads", new ArrayList<>());
-        dishTypesMap.get("Salads").add(new Salad("Caesar", 15, 10, 150));
-        dishTypesMap.put("Drinks", new ArrayList<>());
-        dishTypesMap.get("Drinks").add(new Drink("Beer", 10, 5, 100));
-
+    public void readFromJson(String jsonPath) throws IOException {
+        Type mainCoursesMapType = new TypeToken<ArrayList<MainCourse>>() {}.getType();
+        Type saladsMapType = new TypeToken<ArrayList<Salad>>() {}.getType();
+        Type drinksMapType = new TypeToken<ArrayList<Drink>>() {}.getType();
+        String strJsonMenu = new String(Files.readAllBytes(Paths.get(jsonPath)));
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jo = (JsonObject)jsonParser.parse(strJsonMenu);
+        JsonArray jsonArrMainCourses = jo.getAsJsonArray("Main Courses");
+        JsonArray jsonArrSalads = jo.getAsJsonArray("Salads");
+        JsonArray jsonArrDrinks = jo.getAsJsonArray("Drinks");
+        Gson googleJson = new Gson();
+        dishTypesMap.put("Main Courses", googleJson.fromJson(jsonArrMainCourses, mainCoursesMapType));
+        dishTypesMap.put("Salads", googleJson.fromJson(jsonArrSalads, saladsMapType));
+        dishTypesMap.put("Drinks", googleJson.fromJson(jsonArrDrinks, drinksMapType));
     }
 
-    public void readFromJson(String json) {
-        MainCourse mainCourse = GSON.fromJson(json, MainCourse.class);
-    }
-
-    public HashMap<String, ArrayList<Dish>> getDishTypesMap() {
-        return (HashMap<String, ArrayList<Dish>>) dishTypesMap;
+    public Map<String, ArrayList<Dish>> getDishTypesMap() {
+        return dishTypesMap;
     }
 }
