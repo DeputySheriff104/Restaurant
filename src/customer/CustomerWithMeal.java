@@ -1,6 +1,7 @@
 package customer;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import restaurant.dishes.Dish;
 
 import java.io.File;
@@ -17,10 +18,10 @@ public class CustomerWithMeal {
         dishes.add(dish);
     }
 
-    public String convertToString() {
+    String convertToString() {
         StringBuilder str = new StringBuilder();
         if (dishes.size() != 0) {
-            str.append("\nCustomer has chosen:");
+            str.append("Customer has chosen:");
             for (Dish dish : dishes) {
                 str.append("\n - ");
                 str.append(dish.getName());
@@ -32,6 +33,7 @@ public class CustomerWithMeal {
                 str.append(dish.getCalories());
                 str.append(")");
             }
+            str.append("\n");
         }
         else {
             str.append("\nCustomer has not chosen anything");
@@ -39,9 +41,10 @@ public class CustomerWithMeal {
         return str.toString();
     }
 
-    public void writeToJson(String pathName) throws IOException {
-        FileWriter file = new FileWriter(pathName, false);
-        file.write(new Gson().toJson(dishes));
+    void writeToJson(String jsonPath) throws IOException {
+        FileWriter file = new FileWriter(jsonPath, true);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        file.append(gson.toJson(dishes));
         file.flush();
     }
 }

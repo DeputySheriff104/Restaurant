@@ -6,9 +6,9 @@ import customer.CustomerWithMeal;
 import restaurant.dishes.Dish;
 import restaurant.menu.Menu;
 
-class Logic {
+public class Logic {
 
-    static CustomerWithMeal getCustomerWithMeal(Customer customer, Menu menu) {
+    public static CustomerWithMeal getCustomerWithMeal(Customer customer, Menu menu) {
         CustomerWithMeal customerWithMeal = new CustomerWithMeal();
         customer.getConstraints().getDishTypes().forEach((k, v) -> {
             Dish neededDish;
