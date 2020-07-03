@@ -1,36 +1,30 @@
 package logic;
 
-import customer.Customer;
 import customer.CustomerThread;
-import customer.CustomerWithMeal;
+import order.Order;
+import restaurant.cooking.CookingThread;
 import restaurant.menu.Menu;
-import utilities.JsonUtility;
 
 import java.io.IOException;
-
-import static java.lang.Thread.sleep;
+import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String menuPathJson = "C:\\Users\\Admin\\Desktop\\St\\Restaurant\\src\\restaurant\\jsonFiles\\menu.json";
-        String ordersReportPathJson1 = "C:\\Users\\Admin\\Desktop\\St\\Restaurant\\src\\restaurant\\jsonFiles\\ordersReport1.json";
-        String ordersReportPathJson2 = "C:\\Users\\Admin\\Desktop\\St\\Restaurant\\src\\restaurant\\jsonFiles\\ordersReport2.json";
+        String menuPathJson = "C:\\Users\\Vlad\\IdeaProjects\\Restaurant\\sources\\json\\menu.json";
+        String ordersReportPathJson = "C:\\Users\\Vlad\\IdeaProjects\\Restaurant\\sources\\json\\ordersReport.json";
         Menu menu = new Menu();
         menu.readFromJson(menuPathJson);
+        int amountOfCustomers = 5;
 
-        CustomerThread customerThread1 = new CustomerThread(menu, ordersReportPathJson1, 2, 5);
-        customerThread1.startThread();
-        CustomerThread customerThread2 = new CustomerThread(menu, ordersReportPathJson2, 3, 4);
-        customerThread2.startThread();
+        ArrayBlockingQueue<Order> ordersQueue = new ArrayBlockingQueue<>(10, true);
 
-        /*Customer customer = new Customer();
-        Menu menu = new Menu();
-        menu.readFromJson("C:\\Users\\Admin\\Desktop\\St\\Restaurant\\src\\restaurant\\dishes\\menu.json");
-        System.out.println(customer. convertToString());
-        CustomerWithMeal customerWithMeal = Logic.getCustomerWithMeal(customer, menu);
-        System.out.println(customerWithMeal.convertToString());
-        customerWithMeal.writeToJson("C:\\Users\\Admin\\Desktop\\St\\Restaurant\\src\\restaurant\\dishes\\ordersReport1.json");*/
+        CustomerThread customerThread = new CustomerThread(menu, ordersReportPathJson,2,
+                amountOfCustomers);
+        customerThread.startThread(ordersQueue);
+
+        CookingThread cookingThread = new CookingThread(5, amountOfCustomers);
+        cookingThread.startThread(cookingThread, ordersQueue);
     }
 }

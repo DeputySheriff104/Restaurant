@@ -1,5 +1,7 @@
 package customer;
 
+import order.Constraints;
+
 public class Customer {
 
     private Constraints constraints;
@@ -10,7 +12,7 @@ public class Customer {
 
     public String convertToString() {
         StringBuilder str = new StringBuilder();
-        str.append("Money: ");
+        str.append("\nMoney: ");
         str.append(constraints.getMoney());
         str.append("\nTime: ");
         str.append(constraints.getTime());

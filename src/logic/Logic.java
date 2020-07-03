@@ -1,26 +1,32 @@
 package logic;
 
-import customer.Constraints;
+import order.Constraints;
 import customer.Customer;
-import customer.CustomerWithMeal;
+import order.Order;
 import restaurant.dishes.Dish;
 import restaurant.menu.Menu;
 
 public class Logic {
 
-    public static CustomerWithMeal getCustomerWithMeal(Customer customer, Menu menu) {
-        CustomerWithMeal customerWithMeal = new CustomerWithMeal();
+    public static Order getOrder(Customer customer, Menu menu) {
+        Order order = new Order();
         customer.getConstraints().getDishTypes().forEach((k, v) -> {
             Dish neededDish;
             for (int i = 0; i < v; i++) {
                 neededDish = getNeededDish(customer.getConstraints(), k, menu);
                 if (neededDish != null) {
-                    customerWithMeal.addDish(neededDish);
+                    order.addDish(neededDish);
                     spendCustomerResources(customer.getConstraints(), neededDish);
                 }
             }
         });
-        return customerWithMeal;
+        return order;
+        /*if (order.getDishesAmount() > 0) {
+            return order;
+        }
+        else {
+            return null;
+        }*/
     }
 
     private static Dish getNeededDish(Constraints constraints, String dishType, Menu menu) {

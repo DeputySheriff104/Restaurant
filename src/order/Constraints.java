@@ -1,4 +1,4 @@
-package customer;
+package order;
 
 import java.util.HashMap;
 
@@ -9,7 +9,7 @@ public class Constraints {
     private int dishAmount;
     private HashMap<String, Integer> dishTypes;
 
-    Constraints() {
+    public Constraints() {
         this.money = (int) (Math.random() * 40) + 10;
         this.time = (int) (Math.random() * 20) + 10;
         this.calories = (int) (Math.random() * 600) + 100;
@@ -34,6 +34,7 @@ public class Constraints {
     public int getMoney () {
         return money;
     }
+
     public int getTime () {
         return time;
     }
@@ -50,7 +51,7 @@ public class Constraints {
         this.calories = calories;
     }
 
-    int getDishAmount() {
+    public int getDishAmount() {
         return dishAmount;
     }
 
